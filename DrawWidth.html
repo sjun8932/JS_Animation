@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Width_Test</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="1024", height="2048"></canvas>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const x = window.innerWidth;
+
+    ctx.beginPath();       // Start a new path
+    ctx.moveTo(0, 100);    // Move the pen to (30, 50)
+    ctx.lineTo(x, 100);  // Draw a line to (150, 100)
+    ctx.stroke();          // Render the path
+
+    document.addEventListener('mousemove', parallaxText);
+    document.addEventListener('mousemove', parallaxText2);
+
+
+    function parallaxText(e){
+        console.log(e.pageX)
+        const x3 = (e.pageX*2 - window.innerWidth)/2;
+        // 브라우저 좌측시작점부터 마우스 포인터 중간까지 갔을 때 값이 0 이므로 그려지지 않다가 그 곳을 기점으로 값이 커지니 선이 그려짐
+        ctx.beginPath();       // Start a new path
+        ctx.moveTo(0, 200);    // Move the pen to (30, 50)
+        ctx.lineTo(x3, 200);  // Draw a line to (150, 100)
+        ctx.stroke();
+    }
+
+    function parallaxText2(e){
+        console.log(e.pageX)
+        const x3 = ( window.innerWidth - e.pageX*2)/2;
+        // 브라우저 우측 시작 점부터 중간까지 갔을때 값이 0 이므로 그려지지 않다가 그 곳을 기점으로 값이 커지 선이 그려짐
+        ctx.beginPath();       // Start a new path
+        ctx.moveTo(0, 300);    // Move the pen to (30, 50)
+        ctx.lineTo(x3, 300);  // Draw a line to (150, 100)
+        ctx.stroke();
+    }
+
+
+
+</script>
+</body>
+</html>
